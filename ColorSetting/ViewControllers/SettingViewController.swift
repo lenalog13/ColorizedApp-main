@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController {
     
     // MARK: - IBOutlets
 
@@ -22,16 +22,19 @@ class SettingViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
+    @IBOutlet var redTextField: UITextField!
+    @IBOutlet var greenTextField: UITextField!
+    @IBOutlet var blueTextField: UITextField!
+    
     // MARK: - Private Properties
     
-    
+    var color: UIColor!
     
     //MARK: - Override Func
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.hidesBackButton = true
-        colorView.layer.cornerRadius = 10
+        setView()
         setColorView()
     }
     
@@ -45,17 +48,17 @@ class SettingViewController: UIViewController {
     
     @IBAction func pulledRedSlider() {
         setColorView()
-        redLabel.text = String(format: "%.2f", redSlider.value)
+        setValue(redSlider)
     }
     
     @IBAction func pulledGreenSlider() {
         setColorView()
-        greenLabel.text = String(format: "%.2f", greenSlider.value)
+        setValue(greenSlider)
     }
     
     @IBAction func pulledBlueSlider() {
         setColorView()
-        blueLabel.text = String(format: "%.2f", blueSlider.value)
+        setValue(blueSlider)
     }
     
     
@@ -66,6 +69,35 @@ class SettingViewController: UIViewController {
                                             green: CGFloat(greenSlider.value),
                                             blue: CGFloat(blueSlider.value),
                                             alpha: 1)
+    }
+    
+    private func setValue(_ slider: UISlider) {
+        switch slider {
+        case redSlider:
+            redLabel.text = String(format: "%.2f", redSlider.value)
+            redTextField.text = String(format: "%.2f", redSlider.value)
+        case greenSlider:
+            greenLabel.text = String(format: "%.2f", greenSlider.value)
+            greenTextField.text = String(format: "%.2f", greenSlider.value)
+        default:
+            blueLabel.text = String(format: "%.2f", blueSlider.value)
+            blueTextField.text = String(format: "%.2f", blueSlider.value)
+        }
+    }
+    
+    private func setView() {
+        navigationItem.hidesBackButton = true
+        colorView.layer.cornerRadius = 10
+        colorView.backgroundColor = color
+        
+        redSlider.value = Float(CIColor(color: color).red)
+        setValue(redSlider)
+        
+        greenSlider.value = Float(CIColor(color: color).green)
+        setValue(greenSlider)
+        
+        blueSlider.value = Float(CIColor(color: color).blue)
+        setValue(blueSlider)
     }
     
 }
