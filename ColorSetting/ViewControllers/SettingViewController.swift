@@ -8,6 +8,8 @@
 import UIKit
 
 class SettingViewController: UIViewController {
+    
+    // MARK: - IBOutlets
 
     @IBOutlet var colorView: UIView!
     
@@ -20,6 +22,11 @@ class SettingViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
+    // MARK: - Private Properties
+    
+    
+    
+    //MARK: - Override Func
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +41,8 @@ class SettingViewController: UIViewController {
     }
     
 
+    // MARK: - IBActions
+    
     @IBAction func pulledRedSlider() {
         setColorView()
         redLabel.text = String(format: "%.2f", redSlider.value)
@@ -49,6 +58,8 @@ class SettingViewController: UIViewController {
         blueLabel.text = String(format: "%.2f", blueSlider.value)
     }
     
+    
+    // MARK: - User Interface
     
     private func setColorView() {
         colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
