@@ -7,13 +7,12 @@
 
 import UIKit
 
-final class ColorViewController: UIViewController {
-    
-    // MARK: - IBOutlets
 
-    
-    // MARK: - Private Properties
-    
+protocol SettingViewControllerDelegate {
+    func setColor(_ color: UIColor)
+}
+
+final class ColorViewController: UIViewController {
     
     //MARK: - Override Func
     
@@ -22,19 +21,16 @@ final class ColorViewController: UIViewController {
             return
         }
         settingVS.color = view.backgroundColor
+        settingVS.delegate = self
+    }
+}
+
+//MARK: - SettingViewControllerDelegate
+
+extension ColorViewController: SettingViewControllerDelegate {
+    
+    func setColor(_ color: UIColor) {
+        view.backgroundColor = color
     }
     
-
-    // MARK: - IBActions
-    
-    @IBAction func unwindSegue (_ segue: UIStoryboardSegue) {
-        guard let settingVS = segue.source as? SettingViewController else {
-            return
-        }
-        view.backgroundColor = settingVS.colorView.backgroundColor
-    }
-    
-    
-    // MARK: - User Interface
-
 }
