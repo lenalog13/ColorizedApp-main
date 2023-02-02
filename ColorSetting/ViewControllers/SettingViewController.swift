@@ -101,6 +101,7 @@ final class SettingViewController: UIViewController {
         }
     }
     
+    
     private func setColorView() {
         colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
                                             green: CGFloat(greenSlider.value),
@@ -113,6 +114,10 @@ final class SettingViewController: UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
         present(alert, animated: true)
+    }
+    
+    @objc private func didTapDone() {
+        view.endEditing(true)
     }
     
 }
@@ -140,6 +145,27 @@ extension SettingViewController: UITextFieldDelegate {
         } else {
             showAlert(title: "Incorrect value", message: "Please enter a value fron 0 to 1")
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        textField.inputAccessoryView = keyboardToolbar
+
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(didTapDone)
+            )
+
+        let flexBarButton = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+
+        keyboardToolbar.items = [flexBarButton, doneButton]
     }
     
 }
